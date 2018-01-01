@@ -1,16 +1,16 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+#__pycache__/
+#*.py[cod]
+#*$py.class
 
 # C extensions
-*.so
+#*.so
 
 # Distribution / packaging
-.Python
-env/
-build/
-develop-eggs/
+#.Python
+#env/
+#build/
+#develop-eggs/
 dist/
 downloads/
 eggs/
@@ -65,13 +65,13 @@ instance/
 docs/_build/
 
 # PyBuilder
-target/
+#target/
 
 # Jupyter Notebook
-.ipynb_checkpoints
+#.ipynb_checkpoints
 
 # pyenv
-.python-version
+#.python-version
 
 # celery beat schedule file
 celerybeat-schedule
@@ -95,7 +95,7 @@ ENV/
 .ropeproject
 
 # mkdocs documentation
-/site
+#/site
 
 # mypy
-.mypy_cache/
+#.mypy_cache/
