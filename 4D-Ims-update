@@ -1,0 +1,100 @@
+/ Hi
+/ If you haven't seen it, I copy here the updated version for the 4D uploads, received yestderday.
+/ Useful#
+
+[Slicer][Support] How to load 4D images in Slicer - fMRI or ASL datasets
+Doug Rowland <slicer@discoursemail.com>
+Yesterday, 22:11
+To: Muzart, Harry
+Inbox
+I do have some additional suggestions, based on working in the preclinical area. Most datasets, dynamic framing or multivolume Cardiac data, comes in a single file. From a preclinical perspective, I like not having them as separate files for storage and retrieval. It would be cumbersome to have single files in individual directories. Most of the time a single directory has multiple nifti, raw or analyze files that are multi volume. Being able to select individual files would be a great thing to have.
+Also having raw and analyze file imports would be great. Most image of the other image analysis software I use allows this flexibility and is intuitive (PMOD, Amira, FIJI, etc.). It is a bit surprising that this flexibility and intuitive import isn’t yet built into Slicer. This is what initially kept me from using Slicer.
+Doug
+–
+Previous Replies
+Thanks for the responses. I am still confused by this. The data I have are on the same grid as it was acquired with Intragate which retrospectively reconstructs phases of the heart cycle for a given acquisition. So technically, I should be using option A. The multivolumeImporter does identify the NIFTI format. But the image looks strange and it is such that I cannot cycle the heart phases. See attachment.
+Thanks
+Doug
+
+Posted by djrowland on 03/14/2018
+Visit Topic or reply to this email to respond.
+To stop receiving emails about this topic, category, or all discussions, click here to unsubscribe.
+DR
+Doug Rowland <slicer@discoursemail.com>
+Yesterday, 22:04
+Thanks for the responses. I am still confused by this. The data I have are on the same grid as it was acquired with Intragate which retrospectively reconstructs phases of the heart cycle for a given acquisition. So technically, I should be using option A. The
+Steve Pieper <slicer@discoursemail.com>
+Yesterday, 20:13
+ djrowland:
+Nifti format. I looked at the MultiVolumeImporter and it seems to import nifti but the frames of the images are stacked
+The latest version of the MultiVolumeImporter (as of just the last few days) will try to load 4D nifti data (xyzt) if it finds it as the only file in the import directory. This is new and we don’t have a lot of example data but it works for 4D data from the nifti site. The mac and linux nightly downloads are both broken today but it should work on windows or a local mac or linux build.
+–
+Previous Replies
+There are not one but several ways of importing volume sequences.
+If you have your volume as individual volume files in a folder then you have two main options:
+Option A: If all volumes have the same geometry (origin, spacing, axis directions, extent)and they are all scalar volumes
+Use MultiVolumeImporter module.
+This module creates a Multivolume node. If you prefer volume sequence nodes (because you want to browse it along with other node types, have arbitrary number of time points extracted, etc.) then you can save the node as a nrrd file and when you load it into Slicer again, selecting Volume sequence in the Description column in Add data dialog.
+Option B: In all other cases, for example volumes have different geometry or you want to import different data types (surface or volumetric meshes, point sets, tables, segmentations, etc)
+Install Sequences extension.
+Load your data set: drag-and-drop the folder to the Slicer application window, choose Any data, click OK, click OK.
+Go to Sequences module.
+Create a new Sequence node.
+In Add/remove data nodes section, click on your first node of the sequence, click the green left arrow button.
+Click the left arrow button until all nodes are added.
+If you want to show the sequence playing in viewers:
+Go to Sequence browser module
+Select your sequence in the node selector at the top of Synchronized nodes section
+Click the green + icon
+You can click Rename checkbox to include index value in the proxy node name (that represents the selected sequence item in the scene)
+Select the proxy node to be shown in slice viewer or volume renderer to see the volume
+Posted by lassoan on 03/14/2018
+Visit Topic or reply to this email to respond.
+To stop receiving emails about this topic, category, or all discussions, click here to unsubscribe.
+Andras Lasso <slicer@discoursemail.com>
+Yesterday, 18:33
+There are not one but several ways of importing volume sequences.
+If you have your volume as individual volume files in a folder then you have two main options:
+Option A: If all volumes have the same geometry (origin, spacing, axis directions, extent)and they are all scalar volumes
+Use MultiVolumeImporter module.
+This module creates a Multivolume node. If you prefer volume sequence nodes (because you want to browse it along with other node types, have arbitrary number of time points extracted, etc.) then you can save the node as a nrrd file and when you load it into Slicer again, selecting Volume sequence in the Description column in Add data dialog.
+Option B: In all other cases, for example volumes have different geometry or you want to import different data types (surface or volumetric meshes, point sets, tables, segmentations, etc)
+Install Sequences extension.
+Load your data set: drag-and-drop the folder to the Slicer application window, choose Any data, click OK, click OK.
+Go to Sequences module.
+Create a new Sequence node.
+In Add/remove data nodes section, click on your first node of the sequence, click the green left arrow button.
+Click the left arrow button until all nodes are added.
+If you want to show the sequence playing in viewers:
+Go to Sequence browser module
+Select your sequence in the node selector at the top of Synchronized nodes section
+Click the green + icon
+You can click Rename checkbox to include index value in the proxy node name (that represents the selected sequence item in the scene)
+Select the proxy node to be shown in slice viewer or volume renderer to see the volume
+–
+Previous Replies
+And I am actually quite surprised that Slicer does not have a generalized multi-volume/frame importer. It would be great to have to import framed PET data as well. If you know of resources showing how to do this, it would be appreciated as well.
+Posted by djrowland on 03/14/2018
+Visit Topic or reply to this email to respond.
+To stop receiving emails about this topic, category, or all discussions, click here to unsubscribe.
+Doug Rowland <slicer@discoursemail.com>
+Yesterday, 17:43
+And I am actually quite surprised that Slicer does not have a generalized multi-volume/frame importer. It would be great to have to import framed PET data as well. If you know of resources showing how to do this, it would be appreciated as well.
+–
+Previous Replies
+I am interested in this topic. I have some Bruker cardiac data that I would like to look at in Slicer. I use a plugin in FIJI to convert the data from Bruker format to either Analyze or Nifti format. I looked at the MultiVolumeImporter and it seems to import nifti but the frames of the images are stacked in a single volume such that I cannot explore the multi-volumes. The advanced settings don’t make complete sense. Any pointers on this would be appreciated. Thanks
+Doug
+Posted by djrowland on 03/14/2018
+Visit Topic or reply to this email to respond.
+To stop receiving emails about this topic, category, or all discussions, click here to unsubscribe.
+Doug Rowland <slicer@discoursemail.com>
+Yesterday, 17:41
+I am interested in this topic. I have some Bruker cardiac data that I would like to look at in Slicer. I use a plugin in FIJI to convert the data from Bruker format to either Analyze or Nifti format. I looked at the MultiVolumeImporter and it seems to import nifti but the frames of the images are stacked in a single volume such that I cannot explore the multi-volumes. The advanced settings don’t make complete sense. Any pointers on this would be appreciated. Thanks
+Doug
+–
+Previous Replies
+Great! MutliVolumeImporter solved the problem!
+Thanks
+Posted by acsenrafilho on 10/03/2017
+Visit Topic or reply to this email to respond.
+To stop receiving emails about this topic, category, or all discussions, click here to unsubscribe.
